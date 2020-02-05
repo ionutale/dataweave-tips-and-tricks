@@ -1,0 +1,12 @@
+<sub-flow name="remove-all-variables-from-the-event" >
+		<foreach doc:name="For Each" doc:id="f436329a-f0b8-406a-9dce-496a7313772e" collection='vars pluck ((val, key, index ) -> "varName": (key))'>
+			<choice doc:name="Choice" doc:id="3d469c1d-673e-465b-9b36-06dd07d034ac" >
+				<when expression="#[payload.varName in ['foo', 'bar']]">
+					<remove-variable doc:name="Remove Variable" doc:id="f38857a7-acca-4678-9b82-bb407a3528e8" variableName="#[payload.varName]" />
+				</when>
+				<otherwise >
+					<logger level="INFO" doc:name="Logger" doc:id="ff8a4fcc-52fc-452d-9f0f-bf893cb5b3e0" message="variable not in the remove list"/>
+				</otherwise>
+			</choice>
+		</foreach>
+	</sub-flow>
